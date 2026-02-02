@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import { motion, type Variants, type Easing } from "framer-motion";
 
 interface Project {
   index: string;
@@ -50,14 +51,73 @@ const projects: Project[] = [
   }
 ];
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const easeOut: Easing = [0.25, 0.1, 0.25, 1];
+
+const cardVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    x: -60,
+  },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.5,
+      ease: easeOut
+    }
+  })
+};
+
+const numberVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.5 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: i * 0.15 + 0.2,
+      duration: 0.4,
+      ease: easeOut
+    }
+  })
+};
+
+const techVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.05,
+      duration: 0.3
+    }
+  })
+};
+
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   return (
-    <div className="card-brutal p-6 md:p-8 group">
+    <motion.div 
+      className="card-brutal p-6 md:p-8 group"
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      custom={index}
+      whileHover={{ x: 4, y: 4 }}
+      transition={{ duration: 0.15 }}
+    >
       <div className="flex flex-col md:flex-row md:items-start gap-6">
         {/* Project Number */}
-        <div className="text-6xl md:text-8xl font-black text-muted-foreground/20 leading-none select-none">
+        <motion.div 
+          className="text-6xl md:text-8xl font-black text-muted-foreground/20 leading-none select-none"
+          variants={numberVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={index}
+        >
           {project.index}
-        </div>
+        </motion.div>
 
         {/* Content */}
         <div className="flex-1">
@@ -71,9 +131,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
                 {project.subtitle}
               </p>
             </div>
-            <button className="btn-brutal p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <motion.button 
+              className="btn-brutal p-3 opacity-0 group-hover:opacity-100 transition-opacity"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <ExternalLink className="w-5 h-5" />
-            </button>
+            </motion.button>
           </div>
 
           {/* Description */}
@@ -86,20 +150,45 @@ const ProjectCard = ({ project }: { project: Project }) => {
           </div>
 
           {/* Tech Stack */}
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tech) => (
-              <span 
+          <motion.div 
+            className="flex flex-wrap gap-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {project.tech.map((tech, i) => (
+              <motion.span 
                 key={tech} 
                 className="badge-brutal bg-background text-xs tracking-wide"
+                variants={techVariants}
+                custom={i}
+                whileHover={{ y: -2 }}
               >
                 {tech}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
+};
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: easeOut }
+  }
+};
+
+const lineVariants: Variants = {
+  hidden: { scaleX: 0 },
+  visible: { 
+    scaleX: 1,
+    transition: { duration: 0.6, delay: 0.3, ease: easeOut }
+  }
 };
 
 const Projects = () => {
@@ -107,17 +196,28 @@ const Projects = () => {
     <section id="projects" className="py-20 px-6 bg-muted">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="mb-12">
-          <h2 className="heading-brutal text-3xl md:text-5xl mb-4">
+        <motion.div 
+          className="mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.h2 
+            className="heading-brutal text-3xl md:text-5xl mb-4"
+            variants={headerVariants}
+          >
             SELECTED PROJECTS
-          </h2>
-          <div className="w-24 h-[4px] bg-primary" />
-        </div>
+          </motion.h2>
+          <motion.div 
+            className="w-24 h-[4px] bg-primary origin-left"
+            variants={lineVariants}
+          />
+        </motion.div>
 
         {/* Projects Stack */}
         <div className="space-y-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.index} project={project} />
+          {projects.map((project, index) => (
+            <ProjectCard key={project.index} project={project} index={index} />
           ))}
         </div>
       </div>
