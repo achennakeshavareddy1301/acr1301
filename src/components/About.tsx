@@ -51,7 +51,7 @@ const About = () => {
                   <p className="text-sm font-medium text-muted-foreground mt-1">SYSTEMS BUILT</p>
                 </div>
                 <div>
-                  <p className="text-3xl md:text-4xl font-black">2025</p>
+                  <p className="text-3xl md:text-4xl font-black">2026</p>
                   <p className="text-sm font-medium text-muted-foreground mt-1">GRADUATING</p>
                 </div>
               </div>
