@@ -1,106 +1,102 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 
-const bootLines = [
-  { text: "> INITIALIZING SYSTEM...", delay: 0 },
-  { text: "> LOADING MODULES: AI / FULLSTACK / DESIGN", delay: 400 },
-  { text: "> COMPILING PORTFOLIO.TSX", delay: 800 },
-  { text: "> STATUS: ALL SYSTEMS OPERATIONAL", delay: 1200 },
-  { text: "> READY_", delay: 1600 },
-];
-
-const nameLetters = "ADITYA".split("");
+const name = "CHENNAKESHAVA";
+const roles = ["SOFTWARE DEVELOPER", "AI ENGINEER", "FULL-STACK BUILDER"];
 
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
-  const [visibleLines, setVisibleLines] = useState<number>(0);
-  const [phase, setPhase] = useState<"boot" | "name" | "exit">("boot");
+  const [phase, setPhase] = useState<"blocks" | "name" | "exit">("blocks");
+  const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    const timers: NodeJS.Timeout[] = [];
-
-    bootLines.forEach((line, i) => {
-      timers.push(
-        setTimeout(() => setVisibleLines(i + 1), line.delay)
-      );
-    });
-
-    timers.push(setTimeout(() => setPhase("name"), 2000));
-    timers.push(setTimeout(() => setPhase("exit"), 3200));
-    timers.push(setTimeout(onComplete, 3800));
-
+    const timers = [
+      setTimeout(() => setPhase("name"), 1400),
+      setTimeout(() => setRoleIndex(1), 2200),
+      setTimeout(() => setRoleIndex(2), 2800),
+      setTimeout(() => setPhase("exit"), 3400),
+      setTimeout(onComplete, 4000),
+    ];
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);
 
+  // Generate random grid blocks
+  const gridCols = 8;
+  const gridRows = 5;
+  const blocks = Array.from({ length: gridCols * gridRows }, (_, i) => i);
+
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] bg-foreground flex flex-col items-center justify-center overflow-hidden"
-      exit={{ 
-        clipPath: "inset(0 0 100% 0)",
-        transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } 
+      className="fixed inset-0 z-[9999] bg-foreground flex items-center justify-center overflow-hidden"
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
       }}
     >
-      {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: `
-          linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px),
-          linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px)
-        `,
-        backgroundSize: "40px 40px",
-      }} />
-
-      {/* Scan line */}
-      <motion.div
-        className="absolute left-0 right-0 h-[2px] bg-primary opacity-30"
-        animate={{ top: ["0%", "100%"] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-      />
-
-      {/* Boot sequence */}
+      {/* Assembling grid blocks phase */}
       <AnimatePresence>
-        {phase === "boot" && (
+        {phase === "blocks" && (
           <motion.div
-            className="absolute top-12 left-8 md:left-16"
-            exit={{ opacity: 0, transition: { duration: 0.2 } }}
+            className="absolute inset-0 flex items-center justify-center"
+            exit={{ opacity: 0, transition: { duration: 0.3 } }}
           >
-            {bootLines.slice(0, visibleLines).map((line, i) => (
-              <motion.p
-                key={i}
-                className="font-mono text-xs md:text-sm text-primary-foreground/60 mb-2 tracking-wider"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                {line.text}
-                {i === visibleLines - 1 && (
-                  <motion.span
-                    className="inline-block w-2 h-4 bg-primary ml-1 align-middle"
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                  />
-                )}
-              </motion.p>
-            ))}
+            <div
+              className="grid gap-[3px]"
+              style={{
+                gridTemplateColumns: `repeat(${gridCols}, 1fr)`,
+              }}
+            >
+              {blocks.map((i) => (
+                <motion.div
+                  key={i}
+                  className="w-6 h-6 md:w-10 md:h-10 border-[2px] border-primary-foreground/20"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{
+                    scale: 1,
+                    opacity: 1,
+                    backgroundColor:
+                      Math.random() > 0.7
+                        ? "hsl(var(--primary))"
+                        : "transparent",
+                  }}
+                  transition={{
+                    duration: 0.2,
+                    delay: Math.random() * 0.8,
+                    ease: "easeOut",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Centered loading text */}
+            <motion.p
+              className="absolute bottom-16 font-mono text-[10px] tracking-[0.5em] text-primary-foreground/30 uppercase"
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+            >
+              Initializing
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Big name reveal */}
+      {/* Name reveal phase */}
       <AnimatePresence>
         {(phase === "name" || phase === "exit") && (
           <motion.div
-            className="flex flex-col items-center gap-4"
-            exit={{ opacity: 0, scale: 1.1, transition: { duration: 0.3 } }}
+            className="flex flex-col items-center gap-6 px-4"
+            exit={{ opacity: 0, y: -30, transition: { duration: 0.3 } }}
           >
-            <div className="flex overflow-hidden">
-              {nameLetters.map((letter, i) => (
+            {/* Name with overflow clip per letter */}
+            <div className="flex flex-wrap justify-center overflow-hidden">
+              {name.split("").map((letter, i) => (
                 <motion.span
                   key={i}
-                  className="text-[5rem] md:text-[10rem] lg:text-[14rem] font-black text-primary-foreground leading-none"
-                  initial={{ y: "120%" }}
-                  animate={{ y: "0%" }}
+                  className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-primary-foreground leading-none tracking-tight"
+                  initial={{ y: "110%", rotateX: 90 }}
+                  animate={{ y: "0%", rotateX: 0 }}
                   transition={{
-                    duration: 0.5,
-                    delay: i * 0.06,
+                    duration: 0.45,
+                    delay: i * 0.04,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
@@ -109,60 +105,70 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
               ))}
             </div>
 
+            {/* Accent line */}
             <motion.div
-              className="flex items-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
-            >
-              <div className="h-[3px] w-12 bg-primary" />
-              <p className="text-xs md:text-sm font-bold tracking-[0.4em] text-primary-foreground/50 uppercase">
-                Software Developer & AI Engineer
-              </p>
-              <div className="h-[3px] w-12 bg-primary" />
-            </motion.div>
+              className="h-[3px] bg-primary"
+              initial={{ width: 0 }}
+              animate={{ width: "120px" }}
+              transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
+            />
+
+            {/* Cycling role text */}
+            <div className="h-5 overflow-hidden relative">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={roleIndex}
+                  className="font-mono text-[10px] md:text-xs tracking-[0.3em] text-primary-foreground/50"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {roles[roleIndex]}
+                </motion.p>
+              </AnimatePresence>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Corner markers */}
-      <div className="absolute top-6 right-8 md:right-16">
-        <motion.p
-          className="font-mono text-xs text-primary-foreground/30 text-right"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          PORTFOLIO / 2026
-        </motion.p>
-      </div>
+      {/* Corner details */}
+      <motion.div
+        className="absolute top-6 left-8 flex items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
+        <div className="w-2 h-2 bg-primary" />
+        <p className="font-mono text-[10px] text-primary-foreground/25 tracking-widest">
+          PORTFOLIO
+        </p>
+      </motion.div>
 
-      <div className="absolute bottom-6 left-8 md:left-16 flex items-center gap-3">
+      <motion.p
+        className="absolute top-6 right-8 font-mono text-[10px] text-primary-foreground/25 tracking-widest"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
+        2026
+      </motion.p>
+
+      <motion.div
+        className="absolute bottom-6 left-8 flex items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
         <motion.div
-          className="w-2 h-2 bg-primary"
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-1.5 h-1.5 bg-primary"
+          animate={{ opacity: [1, 0.2, 1] }}
+          transition={{ duration: 1, repeat: Infinity }}
         />
-        <motion.p
-          className="font-mono text-xs text-primary-foreground/30"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          {phase === "boot" ? "BOOTING" : phase === "name" ? "LOADED" : "LAUNCHING"}
-        </motion.p>
-      </div>
-
-      <div className="absolute bottom-6 right-8 md:right-16">
-        <motion.p
-          className="font-mono text-xs text-primary-foreground/30"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          v1.0.0
-        </motion.p>
-      </div>
+        <p className="font-mono text-[10px] text-primary-foreground/25">
+          {phase === "blocks" ? "LOADING" : "READY"}
+        </p>
+      </motion.div>
     </motion.div>
   );
 };
