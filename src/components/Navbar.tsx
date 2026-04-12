@@ -42,12 +42,14 @@ const Navbar = () => {
                 {link.label}
               </button>
             ))}
-            <button
-              onClick={() => scrollToSection("#contact")}
-              className="ml-4 btn-brutal bg-primary text-primary-foreground px-4 py-2 text-sm"
+            <a
+              href="https://flowcv.com/resume/r1lb90vqpwe3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-4 btn-brutal bg-primary text-primary-foreground px-4 py-2 text-sm inline-block"
             >
               HIRE ME
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,12 +73,14 @@ const Navbar = () => {
                 {link.label}
               </button>
             ))}
-            <button
-              onClick={() => scrollToSection("#contact")}
+            <a
+              href="https://flowcv.com/resume/r1lb90vqpwe3"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full text-left px-4 py-4 font-bold text-sm tracking-wide bg-primary text-primary-foreground"
             >
               HIRE ME
-            </button>
+            </a>
           </div>
         )}
       </div>
