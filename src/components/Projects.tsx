@@ -7,6 +7,7 @@ interface Project {
   subtitle: string;
   description: string[];
   tech: string[];
+  github: string;
 }
 
 const projects: Project[] = [
@@ -18,7 +19,8 @@ const projects: Project[] = [
       "AI-powered travel planner that generates personalized itineraries based on budget, preferences, and group size.",
       "Discover destinations, plan daily activities, and manage trips seamlessly."
     ],
-    tech: ["React", "Vite", "Firebase", "Google APIs", "AI Planning Logic"]
+    tech: ["React", "Vite", "Firebase", "Google APIs", "AI Planning Logic"],
+    github: "https://github.com/achennakeshavareddy1301"
   },
   {
     index: "02",
@@ -28,7 +30,8 @@ const projects: Project[] = [
       "A full-stack code agent platform focused on generating frontend code automatically.",
       "Designed to accelerate UI development and reduce repetitive engineering work."
     ],
-    tech: ["Frontend Code Generation", "AI Agents", "Full-Stack Architecture"]
+    tech: ["Frontend Code Generation", "AI Agents", "Full-Stack Architecture"],
+    github: "https://github.com/achennakeshavareddy1301"
   },
   {
     index: "03",
@@ -38,7 +41,8 @@ const projects: Project[] = [
       "AI-powered financial insight tool for Indian users.",
       "Upload Paytm, PhonePe, or Google Pay PDF statements and get instant spending analysis and insights."
     ],
-    tech: ["PDF Parsing", "AI Analytics", "FinTech Logic", "Indian UPI Systems"]
+    tech: ["PDF Parsing", "AI Analytics", "FinTech Logic", "Indian UPI Systems"],
+    github: "https://github.com/achennakeshavareddy1301"
   },
   {
     index: "04",
@@ -47,7 +51,8 @@ const projects: Project[] = [
     description: [
       "Analyzes a skin image along with brief symptoms to generate a structured and safe medication report, including dosage, precautions, and follow-up guidance."
     ],
-    tech: ["Image Analysis", "Medical Safety Logic", "Structured AI Output"]
+    tech: ["Image Analysis", "Medical Safety Logic", "Structured AI Output"],
+    github: "https://github.com/achennakeshavareddy1301"
   }
 ];
 
@@ -131,13 +136,16 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                 {project.subtitle}
               </p>
             </div>
-            <motion.button 
+            <motion.a 
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-brutal p-3 opacity-0 group-hover:opacity-100 transition-opacity"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <ExternalLink className="w-5 h-5" />
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Description */}
