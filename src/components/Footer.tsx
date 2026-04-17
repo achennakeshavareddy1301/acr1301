@@ -8,8 +8,25 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background py-12 px-6">
-      <div className="max-w-5xl mx-auto">
+    <footer
+      className="relative bg-foreground text-background py-12 px-6 overflow-hidden"
+      style={{
+        backgroundImage:
+          "radial-gradient(hsl(var(--background) / 0.15) 1.5px, transparent 1.5px)",
+        backgroundSize: "20px 20px",
+        backgroundPosition: "0 0",
+      }}
+    >
+      {/* Fading edges to focus dots behind content */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 0%, transparent 40%, hsl(var(--foreground)) 90%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative max-w-5xl mx-auto">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Left: Name */}
