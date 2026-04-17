@@ -36,17 +36,49 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Center: Dotted pattern */}
+          {/* Center: Text shaped from dots */}
           <div className="flex justify-center items-center">
-            <div
-              className="h-10 w-40"
-              style={{
-                backgroundImage:
-                  "radial-gradient(hsl(var(--background) / 0.5) 1.5px, transparent 1.5px)",
-                backgroundSize: "8px 8px",
-              }}
-              aria-hidden="true"
-            />
+            <svg
+              viewBox="0 0 400 60"
+              className="w-full max-w-xs h-12"
+              role="img"
+              aria-label="SDE • AI Engineer"
+            >
+              <defs>
+                <pattern
+                  id="footer-dots"
+                  x="0"
+                  y="0"
+                  width="5"
+                  height="5"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <circle cx="1.2" cy="1.2" r="1" fill="hsl(var(--background))" />
+                </pattern>
+                <mask id="footer-text-mask">
+                  <rect width="100%" height="100%" fill="black" />
+                  <text
+                    x="50%"
+                    y="50%"
+                    dominantBaseline="central"
+                    textAnchor="middle"
+                    fontFamily="Inter, system-ui, sans-serif"
+                    fontWeight="900"
+                    fontSize="42"
+                    letterSpacing="1"
+                    fill="white"
+                  >
+                    SDE • AI ENGINEER
+                  </text>
+                </mask>
+              </defs>
+              <rect
+                width="100%"
+                height="100%"
+                fill="url(#footer-dots)"
+                mask="url(#footer-text-mask)"
+              />
+            </svg>
           </div>
 
           {/* Right: Social Links */}
