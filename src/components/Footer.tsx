@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const Footer = () => {
   const socialLinks = [
@@ -7,22 +8,106 @@ const Footer = () => {
     { icon: Mail, href: "mailto:hello@example.com", label: "Email" }
   ];
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+  const mouseRef = useRef<{ x: number; y: number; active: boolean }>({ x: -9999, y: -9999, active: false });
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const SPACING = 24;
+    const BASE_RADIUS = 1;
+    const MAX_RADIUS = 2.6;
+    const INFLUENCE = 110;
+
+    let width = 0;
+    let height = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      const rect = container.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      const { x: mx, y: my, active } = mouseRef.current;
+      for (let y = SPACING / 2; y < height; y += SPACING) {
+        for (let x = SPACING / 2; x < width; x += SPACING) {
+          let radius = BASE_RADIUS;
+          let alpha = 0.08;
+          if (active) {
+            const dx = x - mx;
+            const dy = y - my;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < INFLUENCE) {
+              const t = 1 - dist / INFLUENCE;
+              radius = BASE_RADIUS + (MAX_RADIUS - BASE_RADIUS) * t;
+              alpha = 0.08 + 0.85 * t;
+            }
+          }
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(40, 20%, 96%, ${alpha})`;
+          ctx.fill();
+        }
+      }
+      rafRef.current = requestAnimationFrame(draw);
+    };
+
+    const onMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        active: true,
+      };
+    };
+    const onLeave = () => {
+      mouseRef.current.active = false;
+    };
+
+    resize();
+    rafRef.current = requestAnimationFrame(draw);
+    window.addEventListener("resize", resize);
+    container.addEventListener("mousemove", onMove);
+    container.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("resize", resize);
+      container.removeEventListener("mousemove", onMove);
+      container.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
   return (
     <footer
+      ref={containerRef}
       className="relative bg-foreground text-background py-12 px-6 overflow-hidden"
-      style={{
-        backgroundImage:
-          "radial-gradient(hsl(var(--background) / 0.06) 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-        backgroundPosition: "0 0",
-      }}
     >
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute inset-0 w-full h-full"
+        aria-hidden="true"
+      />
       {/* Fading edges to focus dots behind content */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 0%, transparent 30%, hsl(var(--foreground)) 80%)",
+            "radial-gradient(ellipse at center, transparent 0%, transparent 40%, hsl(var(--foreground)) 90%)",
         }}
         aria-hidden="true"
       />
