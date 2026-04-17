@@ -12,8 +12,8 @@ const Footer = () => {
       className="relative bg-foreground text-background py-12 px-6 overflow-hidden"
       style={{
         backgroundImage:
-          "radial-gradient(hsl(var(--background) / 0.15) 1.5px, transparent 1.5px)",
-        backgroundSize: "20px 20px",
+          "radial-gradient(hsl(var(--background) / 0.06) 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
         backgroundPosition: "0 0",
       }}
     >
@@ -22,7 +22,7 @@ const Footer = () => {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 0%, transparent 40%, hsl(var(--foreground)) 90%)",
+            "radial-gradient(ellipse at center, transparent 0%, transparent 30%, hsl(var(--foreground)) 80%)",
         }}
         aria-hidden="true"
       />
@@ -53,7 +53,7 @@ const Footer = () => {
                   height="5"
                   patternUnits="userSpaceOnUse"
                 >
-                  <circle cx="1.2" cy="1.2" r="1" fill="hsl(var(--background))" />
+                  <circle cx="1.2" cy="1.2" r="0.7" fill="hsl(var(--background) / 0.85)" />
                 </pattern>
                 <mask id="footer-text-mask">
                   <rect width="100%" height="100%" fill="black" />
