@@ -1,5 +1,4 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { useRef, useState } from "react";
 
 const Footer = () => {
   const socialLinks = [
@@ -8,27 +7,8 @@ const Footer = () => {
     { icon: Mail, href: "mailto:hello@example.com", label: "Email" }
   ];
 
-  const footerRef = useRef<HTMLElement>(null);
-  const [cursor, setCursor] = useState<{ x: number; y: number; active: boolean }>({
-    x: -9999,
-    y: -9999,
-    active: false,
-  });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = footerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top, active: true });
-  };
-
-  const handleMouseLeave = () =>
-    setCursor((c) => ({ ...c, active: false }));
-
   return (
     <footer
-      ref={footerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative bg-foreground text-background py-12 px-6 overflow-hidden"
       style={{
         backgroundImage:
@@ -37,20 +17,6 @@ const Footer = () => {
         backgroundPosition: "0 0",
       }}
     >
-      {/* Cursor-reactive bright dot patch */}
-      <div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
-        style={{
-          opacity: cursor.active ? 1 : 0,
-          backgroundImage:
-            "radial-gradient(hsl(var(--background) / 0.55) 1.2px, transparent 1.2px)",
-          backgroundSize: "24px 24px",
-          backgroundPosition: "0 0",
-          WebkitMaskImage: `radial-gradient(circle 140px at ${cursor.x}px ${cursor.y}px, black, transparent 75%)`,
-          maskImage: `radial-gradient(circle 140px at ${cursor.x}px ${cursor.y}px, black, transparent 75%)`,
-        }}
-        aria-hidden="true"
-      />
       {/* Fading edges to focus dots behind content */}
       <div
         className="pointer-events-none absolute inset-0"
