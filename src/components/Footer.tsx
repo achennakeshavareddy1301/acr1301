@@ -36,11 +36,17 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Center: Title */}
-          <div className="text-center">
-            <p className="font-medium text-sm tracking-wide text-background/70">
-              Software Developer • AI Engineer
-            </p>
+          {/* Center: Dotted pattern */}
+          <div className="flex justify-center items-center">
+            <div
+              className="h-10 w-40"
+              style={{
+                backgroundImage:
+                  "radial-gradient(hsl(var(--background) / 0.5) 1.5px, transparent 1.5px)",
+                backgroundSize: "8px 8px",
+              }}
+              aria-hidden="true"
+            />
           </div>
 
           {/* Right: Social Links */}
