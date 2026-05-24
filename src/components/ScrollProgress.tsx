@@ -25,7 +25,7 @@ const ScrollProgress = () => {
       aria-hidden="true"
     >
       <div
-        className="h-full bg-foreground transition-[width] duration-75 ease-out"
+        className="h-full bg-primary transition-[width] duration-75 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>
