@@ -9,27 +9,27 @@
 
 @layer base {
   :root {
-    --background: 40 20% 96%;
+    --background: 60 100% 96%;
     --foreground: 0 0% 0%;
 
-    --card: 40 20% 96%;
+    --card: 60 100% 96%;
     --card-foreground: 0 0% 0%;
 
-    --popover: 40 20% 96%;
+    --popover: 60 100% 96%;
     --popover-foreground: 0 0% 0%;
 
-    /* Electric Blue - Primary */
-    --primary: 217 91% 50%;
-    --primary-foreground: 0 0% 100%;
+    /* Soft Lavender - Primary */
+    --primary: 286 100% 93%;
+    --primary-foreground: 0 0% 0%;
 
     /* Keep accent for secondary emphasis */
-    --accent: 217 91% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 286 100% 93%;
+    --accent-foreground: 0 0% 0%;
 
-    --secondary: 40 10% 90%;
+    --secondary: 60 60% 92%;
     --secondary-foreground: 0 0% 0%;
 
-    --muted: 40 10% 85%;
+    --muted: 60 50% 88%;
     --muted-foreground: 0 0% 40%;
 
     --destructive: 0 84% 50%;
@@ -37,18 +37,18 @@
 
     --border: 0 0% 0%;
     --input: 0 0% 0%;
-    --ring: 217 91% 50%;
+    --ring: 286 100% 93%;
 
     --radius: 0rem;
 
-    --sidebar-background: 40 20% 96%;
+    --sidebar-background: 60 100% 96%;
     --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 217 91% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 91% 50%;
-    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-primary: 286 100% 93%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 286 100% 93%;
+    --sidebar-accent-foreground: 0 0% 0%;
     --sidebar-border: 0 0% 0%;
-    --sidebar-ring: 217 91% 50%;
+    --sidebar-ring: 286 100% 93%;
   }
 
   .dark {
