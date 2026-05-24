@@ -18,13 +18,12 @@
     --popover: 60 100% 96%;
     --popover-foreground: 0 0% 0%;
 
-    /* Soft Lavender - Primary */
-    --primary: 286 100% 93%;
-    --primary-foreground: 0 0% 0%;
+    /* Electric Cobalt - Primary */
+    --primary: 224 100% 58%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Keep accent for secondary emphasis */
-    --accent: 286 100% 93%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 224 100% 58%;
+    --accent-foreground: 0 0% 100%;
 
     --secondary: 60 60% 92%;
     --secondary-foreground: 0 0% 0%;
@@ -37,18 +36,18 @@
 
     --border: 0 0% 0%;
     --input: 0 0% 0%;
-    --ring: 286 100% 93%;
+    --ring: 224 100% 58%;
 
     --radius: 0rem;
 
     --sidebar-background: 60 100% 96%;
     --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 286 100% 93%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 286 100% 93%;
-    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-primary: 224 100% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 224 100% 58%;
+    --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 0%;
-    --sidebar-ring: 286 100% 93%;
+    --sidebar-ring: 224 100% 58%;
   }
 
   .dark {
@@ -61,10 +60,10 @@
     --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 217 91% 55%;
+    --primary: 224 100% 65%;
     --primary-foreground: 0 0% 100%;
 
-    --accent: 217 91% 55%;
+    --accent: 224 100% 65%;
     --accent-foreground: 0 0% 100%;
 
     --secondary: 0 0% 15%;
@@ -78,16 +77,16 @@
 
     --border: 0 0% 100%;
     --input: 0 0% 100%;
-    --ring: 217 91% 55%;
+    --ring: 224 100% 65%;
 
     --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 217 91% 55%;
+    --sidebar-primary: 224 100% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 91% 55%;
+    --sidebar-accent: 224 100% 65%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 100%;
-    --sidebar-ring: 217 91% 55%;
+    --sidebar-ring: 224 100% 65%;
   }
 }
 
