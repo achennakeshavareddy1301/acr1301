@@ -20,12 +20,6 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b-[3px] border-foreground">
-      {/* Top utility strip */}
-      <div className="hidden md:flex items-center justify-between px-6 h-6 border-b border-foreground/15 text-[10px] font-bold tracking-[0.25em] text-foreground/60">
-        <span>HYDERABAD, IN</span>
-        <span>AVAILABLE FOR FULL-TIME · 2026</span>
-        <span>{time}</span>
-      </div>
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
