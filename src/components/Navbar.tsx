@@ -23,17 +23,20 @@ const Navbar = () => {
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo block */}
+          {/* Persona */}
           <a
             href="#"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group flex items-center gap-3"
           >
-            <span className="w-8 h-8 border-[3px] border-foreground bg-primary group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-transform" />
-            <span className="flex flex-col leading-none">
-              <span className="font-black text-base tracking-tight">ACR<span className="text-primary">.</span></span>
-              <span className="text-[9px] font-bold tracking-[0.2em] text-foreground/60 mt-1">CHENNAKESHAVA</span>
-            </span>
+            <img
+              src="/persona.png"
+              alt="Chennakeshava"
+              className="w-9 h-9 border-[3px] border-foreground object-cover group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-transform"
+              loading="lazy"
+              width={36}
+              height={36}
+            />
           </a>
 
           {/* Desktop Navigation */}
