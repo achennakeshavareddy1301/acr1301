@@ -209,8 +209,11 @@ const lineVariants: Variants = {
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 px-6 bg-muted">
-      <div className="max-w-5xl mx-auto">
+    <section id="projects" className="relative py-20 px-6 bg-muted overflow-hidden">
+      <div aria-hidden className="absolute inset-0 bg-blueprint pointer-events-none opacity-60" />
+      <div aria-hidden className="absolute top-12 right-10 w-20 h-20 bg-primary border-[3px] border-foreground hidden md:block" />
+      <div aria-hidden className="absolute bottom-16 left-10 w-12 h-12 border-[3px] border-foreground bg-stripes hidden md:block" />
+      <div className="relative max-w-5xl mx-auto">
         {/* Section Header */}
         <motion.div 
           className="mb-12"
