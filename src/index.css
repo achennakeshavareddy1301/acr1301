@@ -135,3 +135,35 @@
     @apply text-4xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase;
   }
 }
+
+@layer utilities {
+  /* Brutalist dot grid background */
+  .bg-dot-grid {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.18) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+
+  /* Brutalist crosshatch / blueprint grid */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Diagonal stripes accent */
+  .bg-stripes {
+    background-image: repeating-linear-gradient(
+      45deg,
+      hsl(var(--foreground) / 0.06) 0 2px,
+      transparent 2px 14px
+    );
+  }
+
+  /* Soft radial fade so patterns don't fight content */
+  .mask-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 55%, transparent 95%);
+            mask-image: radial-gradient(ellipse at center, black 55%, transparent 95%);
+  }
+}
