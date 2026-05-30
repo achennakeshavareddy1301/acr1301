@@ -17,13 +17,23 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-20 overflow-hidden">
-      {/* Layered brutalist background */}
-      <div aria-hidden className="absolute inset-0 bg-blueprint mask-fade pointer-events-none" />
-      <div aria-hidden className="absolute inset-0 bg-dot-grid mask-fade pointer-events-none opacity-70" />
-      {/* Accent blocks */}
-      <div aria-hidden className="absolute top-28 right-10 w-24 h-24 bg-primary border-[3px] border-foreground hidden md:block" />
-      <div aria-hidden className="absolute bottom-16 left-8 w-16 h-16 border-[3px] border-foreground bg-stripes hidden md:block" />
-      <div aria-hidden className="absolute top-1/2 right-24 w-10 h-10 border-[3px] border-foreground bg-background hidden md:block" />
+      {/* Editorial blueprint background — single soft grid, faded out */}
+      <div aria-hidden className="absolute inset-0 bg-blueprint pointer-events-none opacity-60 [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)]" />
+
+      {/* Editorial frame — thin rules + index marker (intentional, not random) */}
+      <div aria-hidden className="absolute top-24 left-0 right-0 h-px bg-foreground/15 hidden md:block" />
+      <div aria-hidden className="absolute bottom-12 left-0 right-0 h-px bg-foreground/15 hidden md:block" />
+      <div aria-hidden className="absolute top-24 bottom-12 left-6 w-px bg-foreground/15 hidden md:block" />
+      <div aria-hidden className="absolute top-24 bottom-12 right-6 w-px bg-foreground/15 hidden md:block" />
+
+      {/* Corner index labels — like a print layout */}
+      <div className="absolute top-28 right-10 hidden md:flex items-center gap-3 text-[10px] font-bold tracking-[0.25em] text-foreground/60">
+        <span className="w-8 h-px bg-foreground/40" />
+        <span>PORTFOLIO / 2026</span>
+      </div>
+      <div className="absolute bottom-16 right-10 hidden md:block text-[10px] font-bold tracking-[0.25em] text-foreground/60">
+        INDEX — 001
+      </div>
 
       <div className="relative max-w-5xl mx-auto">
         {/* Status Badge */}
