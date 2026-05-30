@@ -1,26 +1,8 @@
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const update = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Kolkata",
-        }) + " IST"
-      );
-    };
-    update();
-    const id = setInterval(update, 30_000);
-    return () => clearInterval(id);
-  }, []);
 
   const navLinks = [
     { num: "01", label: "ABOUT", href: "#about" },
@@ -38,26 +20,23 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b-[3px] border-foreground">
-      {/* Top utility strip */}
-      <div className="hidden md:flex items-center justify-between px-6 h-6 border-b border-foreground/15 text-[10px] font-bold tracking-[0.25em] text-foreground/60">
-        <span>HYDERABAD, IN</span>
-        <span>AVAILABLE FOR FULL-TIME · 2026</span>
-        <span>{time}</span>
-      </div>
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo block */}
+          {/* Persona */}
           <a
             href="#"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group flex items-center gap-3"
           >
-            <span className="w-8 h-8 border-[3px] border-foreground bg-primary group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-transform" />
-            <span className="flex flex-col leading-none">
-              <span className="font-black text-base tracking-tight">ACR<span className="text-primary">.</span></span>
-              <span className="text-[9px] font-bold tracking-[0.2em] text-foreground/60 mt-1">CHENNAKESHAVA</span>
-            </span>
+            <img
+              src="/persona.png"
+              alt="Chennakeshava"
+              className="w-9 h-9 border-[3px] border-foreground object-cover group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-transform"
+              loading="lazy"
+              width={36}
+              height={36}
+            />
           </a>
 
           {/* Desktop Navigation */}
