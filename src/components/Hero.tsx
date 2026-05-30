@@ -16,8 +16,16 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 pt-24 pb-20">
-      <div className="max-w-5xl mx-auto">
+    <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-20 overflow-hidden">
+      {/* Layered brutalist background */}
+      <div aria-hidden className="absolute inset-0 bg-blueprint mask-fade pointer-events-none" />
+      <div aria-hidden className="absolute inset-0 bg-dot-grid mask-fade pointer-events-none opacity-70" />
+      {/* Accent blocks */}
+      <div aria-hidden className="absolute top-28 right-10 w-24 h-24 bg-primary border-[3px] border-foreground hidden md:block" />
+      <div aria-hidden className="absolute bottom-16 left-8 w-16 h-16 border-[3px] border-foreground bg-stripes hidden md:block" />
+      <div aria-hidden className="absolute top-1/2 right-24 w-10 h-10 border-[3px] border-foreground bg-background hidden md:block" />
+
+      <div className="relative max-w-5xl mx-auto">
         {/* Status Badge */}
         <div className="flex items-center gap-4 mb-8">
           <div className="badge-brutal bg-background">

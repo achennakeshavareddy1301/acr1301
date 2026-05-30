@@ -61,15 +61,23 @@ const easeOut: Easing = [0.25, 0.1, 0.25, 1];
 const cardVariants: Variants = {
   hidden: { 
     opacity: 0, 
-    x: -60,
+    x: -80,
+    y: 40,
+    scale: 0.92,
+    rotate: -1.5,
   },
   visible: (i: number) => ({
     opacity: 1,
     x: 0,
+    y: 0,
+    scale: 1,
+    rotate: 0,
     transition: {
-      delay: i * 0.15,
-      duration: 0.5,
-      ease: easeOut
+      delay: i * 0.08,
+      duration: 0.55,
+      type: "spring",
+      stiffness: 140,
+      damping: 16,
     }
   })
 };
@@ -106,7 +114,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: false, amount: 0.25, margin: "-80px" }}
       custom={index}
       whileHover={{ x: 4, y: 4 }}
       transition={{ duration: 0.15 }}
@@ -201,8 +209,11 @@ const lineVariants: Variants = {
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 px-6 bg-muted">
-      <div className="max-w-5xl mx-auto">
+    <section id="projects" className="relative py-20 px-6 bg-muted overflow-hidden">
+      <div aria-hidden className="absolute inset-0 bg-blueprint pointer-events-none opacity-60" />
+      <div aria-hidden className="absolute top-12 right-10 w-20 h-20 bg-primary border-[3px] border-foreground hidden md:block" />
+      <div aria-hidden className="absolute bottom-16 left-10 w-12 h-12 border-[3px] border-foreground bg-stripes hidden md:block" />
+      <div className="relative max-w-5xl mx-auto">
         {/* Section Header */}
         <motion.div 
           className="mb-12"
