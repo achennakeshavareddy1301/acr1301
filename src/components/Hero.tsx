@@ -17,14 +17,70 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-20 overflow-hidden">
-      {/* Editorial blueprint background — single soft grid, faded out */}
-      <div aria-hidden className="absolute inset-0 bg-blueprint pointer-events-none opacity-60 [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)]" />
+      {/* Technical schematic background — layered grids + draft motifs */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-[0.09]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "8px 8px",
+          maskImage:
+            "linear-gradient(to bottom, black 0%, black 70%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, black 70%, transparent 100%)",
+        }}
+      />
 
-      {/* Editorial frame — thin rules + index marker (intentional, not random) */}
+      {/* Draft schematic circle — top right */}
+      <svg
+        aria-hidden
+        className="absolute -top-[10%] -right-[5%] w-[45%] text-primary opacity-[0.06] pointer-events-none"
+        viewBox="0 0 100 100"
+      >
+        <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.4" />
+        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.2" />
+        <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" strokeWidth="0.2" />
+        <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.2" />
+        <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.2" />
+      </svg>
+
+      {/* Reference annotation — bottom left */}
+      <div
+        aria-hidden
+        className="absolute bottom-16 left-10 hidden md:block text-[10px] font-mono opacity-30 uppercase tracking-tighter leading-snug"
+      >
+        REF: 04-A // SCALE 1:1.0
+        <br />
+        POS: 17.3850° N, 78.4867° E
+      </div>
+
+      {/* Editorial frame rules */}
       <div aria-hidden className="absolute top-24 left-0 right-0 h-px bg-foreground/15 hidden md:block" />
       <div aria-hidden className="absolute bottom-12 left-0 right-0 h-px bg-foreground/15 hidden md:block" />
       <div aria-hidden className="absolute top-24 bottom-12 left-6 w-px bg-foreground/15 hidden md:block" />
       <div aria-hidden className="absolute top-24 bottom-12 right-6 w-px bg-foreground/15 hidden md:block" />
+
+      {/* Bottom editorial ruler with measurement ticks */}
+      <div
+        aria-hidden
+        className="absolute left-0 bottom-0 w-full h-8 border-t border-foreground/10 hidden md:flex items-center px-6 overflow-hidden pointer-events-none"
+      >
+        <div className="flex gap-8 opacity-25 whitespace-nowrap text-[10px] font-mono">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <span key={i}>{(i * 2.5).toFixed(1)}</span>
+          ))}
+        </div>
+      </div>
 
       {/* Corner index labels — like a print layout */}
       <div className="absolute top-28 right-10 hidden md:flex items-center gap-3 text-[10px] font-bold tracking-[0.25em] text-foreground/60">
