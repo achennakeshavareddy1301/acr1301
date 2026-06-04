@@ -125,7 +125,7 @@ const Footer = () => {
           <div className="flex justify-center items-center">
             <svg
               viewBox="0 0 400 60"
-              className="w-full max-w-xs h-12"
+              className="w-full max-w-xs h-12 footer-glow"
               role="img"
               aria-label="SDE • AI Engineer"
             >
@@ -138,7 +138,7 @@ const Footer = () => {
                   height="5"
                   patternUnits="userSpaceOnUse"
                 >
-                  <circle cx="1.2" cy="1.2" r="0.7" fill="hsl(var(--background) / 0.85)" />
+                  <circle cx="1.2" cy="1.2" r="0.9" fill="hsl(var(--background))" />
                 </pattern>
                 <mask id="footer-text-mask">
                   <rect width="100%" height="100%" fill="black" />

@@ -1,8 +1,16 @@
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { num: "01", label: "ABOUT", href: "#about" },
@@ -19,9 +27,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b-[3px] border-foreground">
-
-      <div className="max-w-7xl mx-auto px-6">
+    <nav
+      className={`fixed left-1/2 -translate-x-1/2 z-50 bg-background/90 backdrop-blur-sm border-foreground transition-all duration-500 ease-out ${
+        scrolled
+          ? "top-4 w-[min(880px,92vw)] border-[3px]"
+          : "top-0 w-full border-b-[3px]"
+      }`}
+    >
+      <div className={`mx-auto px-6 transition-all duration-500 ${scrolled ? "max-w-none" : "max-w-7xl"}`}>
         <div className="flex items-center justify-between h-16">
           {/* Persona */}
           <a
@@ -29,14 +42,25 @@ const Navbar = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group flex items-center gap-3"
           >
-            <img
-              src="/persona.png"
-              alt="Chennakeshava"
-              className="w-9 h-9 border-[3px] border-foreground object-cover group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-transform"
-              loading="lazy"
-              width={36}
-              height={36}
-            />
+            <span
+              aria-label="Coder logo"
+              className="w-10 h-10 border-[3px] border-foreground bg-background flex items-center justify-center group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-transform"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.6"
+                strokeLinecap="square"
+                strokeLinejoin="miter"
+                className="w-5 h-5 text-foreground"
+                aria-hidden="true"
+              >
+                <polyline points="7 8 3 12 7 16" />
+                <polyline points="17 8 21 12 17 16" />
+                <line x1="14" y1="5" x2="10" y2="19" />
+              </svg>
+            </span>
           </a>
 
           {/* Desktop Navigation */}
