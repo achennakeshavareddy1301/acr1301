@@ -2,8 +2,6 @@ const About = () => {
   return (
     <section id="about" className="relative py-20 px-6 overflow-hidden">
       <div aria-hidden className="absolute inset-0 bg-dot-grid mask-fade pointer-events-none opacity-80" />
-      <div aria-hidden className="absolute top-10 left-6 w-14 h-14 border-[3px] border-foreground bg-primary hidden md:block" />
-      <div aria-hidden className="absolute bottom-10 right-10 w-20 h-20 border-[3px] border-foreground bg-stripes hidden md:block" />
       <div className="relative max-w-7xl mx-auto">
         <div className="grid md:grid-cols-12 gap-8 md:gap-12">
           {/* Left: Oversized Heading */}
