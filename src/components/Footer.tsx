@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const socialLinks = [
@@ -93,10 +94,52 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer
+    <motion.footer
       ref={containerRef}
-      className="relative bg-foreground text-background py-12 px-6 overflow-hidden"
+      initial={{ y: 80, opacity: 0, scale: 0.98 }}
+      whileInView={{ y: 0, opacity: 1, scale: 1 }}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="footer-stage relative bg-foreground text-background pt-24 pb-12 px-6 overflow-hidden"
     >
+      {/* Top center semi-circle arch */}
+      <div
+        aria-hidden="true"
+        className="footer-arch pointer-events-none absolute left-1/2 -translate-x-1/2 -top-[1px] z-10"
+      >
+        <svg width="220" height="110" viewBox="0 0 220 110" className="block">
+          <defs>
+            <linearGradient id="arch-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="hsl(var(--primary))" />
+              <stop offset="100%" stopColor="hsl(224 100% 42%)" />
+            </linearGradient>
+          </defs>
+          {/* Filled arch */}
+          <path
+            d="M0,0 L0,2 A110,110 0 0 0 220,2 L220,0 Z"
+            fill="url(#arch-grad)"
+          />
+          {/* Outline stroke */}
+          <path
+            d="M0,2 A110,110 0 0 0 220,2"
+            fill="none"
+            stroke="hsl(var(--background))"
+            strokeWidth="3"
+          />
+          {/* Inner decorative arc */}
+          <path
+            d="M30,2 A80,80 0 0 0 190,2"
+            fill="none"
+            stroke="hsl(var(--background) / 0.35)"
+            strokeWidth="1.5"
+            strokeDasharray="4 6"
+          />
+          {/* Center dot */}
+          <circle cx="110" cy="2" r="6" fill="hsl(var(--background))" />
+          <circle cx="110" cy="2" r="2.5" fill="hsl(var(--primary))" />
+        </svg>
+      </div>
+
       <canvas
         ref={canvasRef}
         className="pointer-events-none absolute inset-0 w-full h-full"
@@ -190,7 +233,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 
