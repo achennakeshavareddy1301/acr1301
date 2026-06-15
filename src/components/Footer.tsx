@@ -1,7 +1,17 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const Footer = () => {
+  const footerRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "start center"],
+  });
+  // Arch draws from 0 → full as the footer enters the viewport
+  const archLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const archOpacity = useTransform(scrollYProgress, [0, 0.15, 1], [0, 1, 1]);
+
   const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
@@ -40,6 +50,7 @@ const Footer = () => {
 
   return (
     <motion.footer
+      ref={footerRef as any}
       initial={{ y: 60, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: false, amount: 0.1 }}
@@ -49,6 +60,32 @@ const Footer = () => {
         background: "linear-gradient(180deg, hsl(60 100% 96%) 0%, hsl(60 100% 96%) 45%, hsl(25 90% 88%) 85%, hsl(20 85% 82%) 100%)"
       }}
     >
+      {/* Semicircular arch at top-center — draws gradually on scroll */}
+      <motion.svg
+        aria-hidden="true"
+        viewBox="0 0 400 200"
+        preserveAspectRatio="xMidYMin meet"
+        className="pointer-events-none absolute -top-[1px] left-1/2 -translate-x-1/2 w-[420px] max-w-[80%] h-auto"
+        style={{ opacity: archOpacity }}
+      >
+        <defs>
+          <linearGradient id="archGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="hsl(18 85% 60%)" />
+            <stop offset="50%" stopColor="hsl(28 95% 55%)" />
+            <stop offset="100%" stopColor="hsl(18 85% 60%)" />
+          </linearGradient>
+        </defs>
+        {/* Half-circle arc from (20,200) up to (380,200) */}
+        <motion.path
+          d="M 20 200 A 180 180 0 0 1 380 200"
+          fill="none"
+          stroke="url(#archGrad)"
+          strokeWidth={3}
+          strokeLinecap="round"
+          style={{ pathLength: archLength }}
+        />
+      </motion.svg>
+
       {/* Soft warm glow blob at bottom center — Sarvam-style */}
       <div
         aria-hidden="true"
