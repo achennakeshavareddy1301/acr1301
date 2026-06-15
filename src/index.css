@@ -186,4 +186,25 @@
       opacity: 1;
     }
   }
+
+  /* Footer card-change stage: footer sits as a raised dark card above contact */
+  .footer-stage {
+    margin-top: -32px;
+    border-top: 3px solid hsl(var(--primary));
+    box-shadow:
+      0 -2px 0 0 hsl(var(--foreground)),
+      0 -14px 0 -6px hsl(var(--primary) / 0.55),
+      0 -28px 0 -14px hsl(var(--primary) / 0.25);
+    transform-origin: top center;
+  }
+
+  .footer-arch svg {
+    animation: arch-float 4s ease-in-out infinite;
+    filter: drop-shadow(0 6px 14px hsl(var(--primary) / 0.55));
+  }
+
+  @keyframes arch-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
 }
