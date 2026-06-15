@@ -1,5 +1,4 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -9,227 +8,115 @@ const Footer = () => {
     { icon: Mail, href: "mailto:hello@example.com", label: "Email" }
   ];
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLElement>(null);
-  const mouseRef = useRef<{ x: number; y: number; active: boolean }>({ x: -9999, y: -9999, active: false });
-  const rafRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const SPACING = 24;
-    const BASE_RADIUS = 1;
-    const MAX_RADIUS = 2.6;
-    const INFLUENCE = 110;
-
-    let width = 0;
-    let height = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    const resize = () => {
-      const rect = container.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-      const { x: mx, y: my, active } = mouseRef.current;
-      for (let y = SPACING / 2; y < height; y += SPACING) {
-        for (let x = SPACING / 2; x < width; x += SPACING) {
-          let radius = BASE_RADIUS;
-          let alpha = 0.08;
-          if (active) {
-            const dx = x - mx;
-            const dy = y - my;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < INFLUENCE) {
-              const t = 1 - dist / INFLUENCE;
-              radius = BASE_RADIUS + (MAX_RADIUS - BASE_RADIUS) * t;
-              alpha = 0.08 + 0.85 * t;
-            }
-          }
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `hsla(40, 20%, 96%, ${alpha})`;
-          ctx.fill();
-        }
-      }
-      rafRef.current = requestAnimationFrame(draw);
-    };
-
-    const onMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-        active: true,
-      };
-    };
-    const onLeave = () => {
-      mouseRef.current.active = false;
-    };
-
-    resize();
-    rafRef.current = requestAnimationFrame(draw);
-    window.addEventListener("resize", resize);
-    container.addEventListener("mousemove", onMove);
-    container.addEventListener("mouseleave", onLeave);
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
-      container.removeEventListener("mousemove", onMove);
-      container.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
+  const footerLinks = [
+    {
+      title: "EXPLORE",
+      links: [
+        { label: "Home", href: "#" },
+        { label: "About", href: "#about" },
+        { label: "Projects", href: "#projects" },
+        { label: "Contact", href: "#contact" },
+      ]
+    },
+    {
+      title: "CONNECT",
+      links: [
+        { label: "GitHub", href: "https://github.com" },
+        { label: "LinkedIn", href: "https://linkedin.com" },
+        { label: "LeetCode", href: "https://leetcode.com" },
+        { label: "Email", href: "mailto:hello@example.com" },
+      ]
+    },
+    {
+      title: "STACK",
+      links: [
+        { label: "React", href: "#" },
+        { label: "TypeScript", href: "#" },
+        { label: "Python", href: "#" },
+        { label: "TensorFlow", href: "#" },
+      ]
+    }
+  ];
 
   return (
     <motion.footer
-      ref={containerRef}
-      initial={{ y: 80, opacity: 0, scale: 0.98 }}
-      whileInView={{ y: 0, opacity: 1, scale: 1 }}
-      viewport={{ once: false, amount: 0.15 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="footer-stage relative bg-foreground text-background pt-24 pb-12 px-6 overflow-hidden"
+      initial={{ y: 60, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: false, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="relative pt-24 pb-10 px-6 overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, hsl(60 100% 96%) 0%, hsl(60 100% 96%) 45%, hsl(25 90% 88%) 85%, hsl(20 85% 82%) 100%)"
+      }}
     >
-      {/* Top center semi-circle arch */}
+      {/* Soft warm glow blob at bottom center — Sarvam-style */}
       <div
         aria-hidden="true"
-        className="footer-arch pointer-events-none absolute left-1/2 -translate-x-1/2 -top-[1px] z-10"
-      >
-        <svg width="220" height="110" viewBox="0 0 220 110" className="block">
-          <defs>
-            <linearGradient id="arch-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="hsl(var(--primary))" />
-              <stop offset="100%" stopColor="hsl(224 100% 42%)" />
-            </linearGradient>
-          </defs>
-          {/* Filled arch */}
-          <path
-            d="M0,0 L0,2 A110,110 0 0 0 220,2 L220,0 Z"
-            fill="url(#arch-grad)"
-          />
-          {/* Outline stroke */}
-          <path
-            d="M0,2 A110,110 0 0 0 220,2"
-            fill="none"
-            stroke="hsl(var(--background))"
-            strokeWidth="3"
-          />
-          {/* Inner decorative arc */}
-          <path
-            d="M30,2 A80,80 0 0 0 190,2"
-            fill="none"
-            stroke="hsl(var(--background) / 0.35)"
-            strokeWidth="1.5"
-            strokeDasharray="4 6"
-          />
-          {/* Center dot */}
-          <circle cx="110" cy="2" r="6" fill="hsl(var(--background))" />
-          <circle cx="110" cy="2" r="2.5" fill="hsl(var(--primary))" />
-        </svg>
-      </div>
-
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute inset-0 w-full h-full"
-        aria-hidden="true"
-      />
-      {/* Fading edges to focus dots behind content */}
-      <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-[55%]"
         style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 0%, transparent 40%, hsl(var(--foreground)) 90%)",
+          background: "radial-gradient(ellipse at 50% 100%, hsl(18 85% 72% / 0.55) 0%, hsl(22 80% 78% / 0.25) 40%, transparent 75%)",
         }}
-        aria-hidden="true"
       />
-      <div className="relative max-w-5xl mx-auto">
-        {/* Main Footer Content */}
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Left: Name */}
-          <div>
-            <p className="font-black text-lg">
-              Built by <span className="text-primary">ACR</span>
+
+      <div className="relative max-w-6xl mx-auto">
+        {/* Top row: Brand + Links */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 md:gap-8">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-2">
+            <p className="text-2xl font-black tracking-tight text-foreground uppercase">
+              ACR
             </p>
-          </div>
-
-          {/* Center: Text shaped from dots */}
-          <div className="flex justify-center items-center">
-            <svg
-              viewBox="0 0 400 60"
-              className="w-full max-w-xs h-12 footer-glow"
-              role="img"
-              aria-label="SDE • AI Engineer"
-            >
-              <defs>
-                <pattern
-                  id="footer-dots"
-                  x="0"
-                  y="0"
-                  width="5"
-                  height="5"
-                  patternUnits="userSpaceOnUse"
+            <p className="mt-2 text-sm text-foreground/60 max-w-xs leading-relaxed">
+              Building systems that learn. Software Engineer graduating 2026.
+            </p>
+            {/* Social icons */}
+            <div className="flex gap-3 mt-5">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 border-[2px] border-foreground/15 text-foreground/70 hover:border-foreground hover:text-foreground transition-colors"
+                  aria-label={link.label}
                 >
-                  <circle cx="1.2" cy="1.2" r="0.9" fill="hsl(var(--background))" />
-                </pattern>
-                <mask id="footer-text-mask">
-                  <rect width="100%" height="100%" fill="black" />
-                  <text
-                    x="50%"
-                    y="50%"
-                    dominantBaseline="central"
-                    textAnchor="middle"
-                    fontFamily="Inter, system-ui, sans-serif"
-                    fontWeight="900"
-                    fontSize="42"
-                    letterSpacing="1"
-                    fill="white"
-                  >
-                    SDE • AI ENGINEER
-                  </text>
-                </mask>
-              </defs>
-              <rect
-                width="100%"
-                height="100%"
-                fill="url(#footer-dots)"
-                mask="url(#footer-text-mask)"
-              />
-            </svg>
+                  <link.icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Right: Social Links */}
-          <div className="flex justify-end gap-3">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 border-[2px] border-background hover:bg-background hover:text-foreground transition-colors"
-                aria-label={link.label}
-              >
-                <link.icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
+          {/* Link columns */}
+          {footerLinks.map((col) => (
+            <div key={col.title}>
+              <p className="text-xs font-black tracking-widest text-foreground/40 uppercase mb-4">
+                {col.title}
+              </p>
+              <ul className="space-y-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="text-sm text-foreground/70 hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Divider */}
-        <div className="border-t-[2px] border-background/20 mt-10 pt-6">
-          <p className="text-center text-xs text-background/50 tracking-wide">
+        {/* Bottom bar */}
+        <div className="mt-16 pt-6 border-t border-foreground/10 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-xs text-foreground/40 tracking-wide">
             No templates. No fluff. Just systems.
+          </p>
+          <p className="text-xs text-foreground/40 tracking-wide">
+            Built by ACR &middot; 2026
           </p>
         </div>
       </div>
