@@ -16,8 +16,10 @@ const Index = () => {
       <About />
       <Projects />
       <CodingActivity />
-      <Contact />
-      <Footer />
+      <div className="relative">
+        <Contact />
+        <Footer />
+      </div>
     </main>
   );
 };
