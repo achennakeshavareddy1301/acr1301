@@ -55,7 +55,7 @@ const Footer = () => {
         aria-hidden="true"
         className="pointer-events-none absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[140%] aspect-[2/1] rounded-t-full"
         style={{
-          background: "radial-gradient(ellipse 80% 100% at 50% 100%, hsl(0 75% 55% / 0.35) 0%, hsl(5 80% 60% / 0.18) 45%, transparent 80%)",
+          background: "radial-gradient(ellipse 80% 100% at 50% 100%, hsl(220 80% 55% / 0.30) 0%, hsl(210 85% 60% / 0.15) 45%, transparent 80%)",
         }}
       />
 
