@@ -50,7 +50,7 @@ const Footer = () => {
         background: "linear-gradient(180deg, hsl(60 100% 96%) 0%, hsl(60 100% 96%) 45%, hsl(25 90% 88%) 85%, hsl(20 85% 82%) 100%)"
       }}
     >
-      {/* Arch-shaped red glow at bottom center */}
+      {/* Arch-shaped blue glow at bottom center */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[140%] aspect-[2/1] rounded-t-full"
