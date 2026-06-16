@@ -1,16 +1,8 @@
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const navLinks = [
     { num: "01", label: "ABOUT", href: "#about" },
@@ -28,13 +20,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed left-1/2 -translate-x-1/2 z-50 bg-background/90 backdrop-blur-sm border-foreground transition-all duration-500 ease-out ${
-        scrolled
-          ? "top-4 w-[min(880px,92vw)] border-[3px]"
-          : "top-0 w-full border-b-[3px]"
-      }`}
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-background/90 backdrop-blur-sm border-foreground border-[3px] w-[min(880px,92vw)]"
     >
-      <div className={`mx-auto px-6 transition-all duration-500 ${scrolled ? "max-w-none" : "max-w-7xl"}`}>
+      <div className="mx-auto px-6 max-w-none">
         <div className="flex items-center justify-between h-16">
           {/* Persona */}
           <a
