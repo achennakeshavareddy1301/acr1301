@@ -1,16 +1,7 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
-  const footerRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: footerRef,
-    offset: ["start end", "start center"],
-  });
-  // Arch draws from 0 → full as the footer enters the viewport
-  const archLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const archOpacity = useTransform(scrollYProgress, [0, 0.15, 1], [0, 1, 1]);
 
   const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub" },
