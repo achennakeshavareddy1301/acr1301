@@ -1,4 +1,5 @@
 import { ArrowDown, Mail } from "lucide-react";
+import acrPixel from "@/assets/acr-pixel.png.asset.json";
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -92,61 +93,97 @@ const Hero = () => {
       </div>
 
       <div className="relative max-w-5xl mx-auto">
-        {/* Status Badge */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="badge-brutal bg-background">
-            <span className="text-xs tracking-widest">STATUS:</span>
-            <span className="text-primary ml-2 text-xs">AVAILABLE</span>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
+          <div>
+            {/* Mobile pixel avatar */}
+            <div className="lg:hidden mb-8 flex justify-start">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-primary border-[3px] border-foreground translate-x-2 translate-y-2" aria-hidden />
+                <div className="relative border-[3px] border-foreground bg-background p-2">
+                  <img
+                    src={acrPixel.url}
+                    alt="Pixel-art portrait"
+                    className="w-32 sm:w-40 h-auto"
+                    style={{ imageRendering: "pixelated" }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Status Badge */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="badge-brutal bg-background">
+                <span className="text-xs tracking-widest">STATUS:</span>
+                <span className="text-primary ml-2 text-xs">AVAILABLE</span>
+              </div>
+            </div>
+
+            {/* Name */}
+            <h1 className="heading-brutal mb-6">
+              <span className="block">AYYALURI</span>
+              <span className="block text-primary">CHENNAKESHAVA</span>
+              <span className="block">REDDY</span>
+            </h1>
+
+            {/* Title */}
+            <div className="border-l-[4px] border-primary pl-6 mb-8">
+              <p className="text-xl md:text-2xl font-bold">SOFTWARE ENGINEER</p>
+              <p className="text-lg text-muted-foreground font-medium mt-1">
+                Full-Stack Development • AI Systems
+              </p>
+            </div>
+
+            {/* Tagline */}
+            <p className="text-lg md:text-xl font-medium max-w-xl mb-12">
+              Building <span className="text-primary font-bold">AI-powered products</span> that actually ship.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={scrollToProjects}
+                className="btn-brutal bg-foreground text-background px-8 py-4 text-sm tracking-wide flex items-center justify-center gap-3"
+              >
+                VIEW PROJECTS
+                <ArrowDown className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={scrollToContact}
+                className="btn-brutal bg-background text-foreground px-8 py-4 text-sm tracking-wide flex items-center justify-center gap-3"
+              >
+                CONTACT ME
+                <Mail className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Decorative Grid */}
+            <div className="mt-20 flex gap-2">
+              <div className="w-8 h-8 bg-primary border-[3px] border-foreground" />
+              <div className="w-8 h-8 bg-foreground border-[3px] border-foreground" />
+              <div className="w-8 h-8 bg-background border-[3px] border-foreground" />
+              <div className="w-8 h-8 bg-muted border-[3px] border-foreground" />
+            </div>
           </div>
-        </div>
 
-        {/* Name */}
-        <h1 className="heading-brutal mb-6">
-          <span className="block">AYYALURI</span>
-          <span className="block text-primary">CHENNAKESHAVA</span>
-          <span className="block">REDDY</span>
-        </h1>
-
-        {/* Title */}
-        <div className="border-l-[4px] border-primary pl-6 mb-8">
-          <p className="text-xl md:text-2xl font-bold">
-            SOFTWARE ENGINEER
-          </p>
-          <p className="text-lg text-muted-foreground font-medium mt-1">
-            Full-Stack Development • AI Systems
-          </p>
-        </div>
-
-        {/* Tagline */}
-        <p className="text-lg md:text-xl font-medium max-w-xl mb-12">
-          Building <span className="text-primary font-bold">AI-powered products</span> that actually ship.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <button
-            onClick={scrollToProjects}
-            className="btn-brutal bg-foreground text-background px-8 py-4 text-sm tracking-wide flex items-center justify-center gap-3"
-          >
-            VIEW PROJECTS
-            <ArrowDown className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={scrollToContact}
-            className="btn-brutal bg-background text-foreground px-8 py-4 text-sm tracking-wide flex items-center justify-center gap-3"
-          >
-            CONTACT ME
-            <Mail className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Decorative Grid */}
-        <div className="mt-20 flex gap-2">
-          <div className="w-8 h-8 bg-primary border-[3px] border-foreground" />
-          <div className="w-8 h-8 bg-foreground border-[3px] border-foreground" />
-          <div className="w-8 h-8 bg-background border-[3px] border-foreground" />
-          <div className="w-8 h-8 bg-muted border-[3px] border-foreground" />
+          {/* Pixel Avatar Portrait */}
+          <div className="hidden lg:flex justify-center lg:justify-end">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-primary border-[3px] border-foreground translate-x-3 translate-y-3" aria-hidden />
+              <div className="relative border-[3px] border-foreground bg-background p-4">
+                <img
+                  src={acrPixel.url}
+                  alt="Pixel-art portrait of Ayyaluri Chennakeshava Reddy"
+                  className="w-[240px] xl:w-[280px] h-auto"
+                  style={{ imageRendering: "pixelated" }}
+                />
+                <div className="mt-3 flex items-center justify-between border-t-[3px] border-foreground pt-2">
+                  <span className="text-[10px] font-black tracking-widest">SPRITE_v1</span>
+                  <span className="w-2 h-2 bg-primary animate-pulse" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
