@@ -95,6 +95,21 @@ const Hero = () => {
       <div className="relative max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
           <div>
+            {/* Mobile pixel avatar */}
+            <div className="lg:hidden mb-8 flex justify-start">
+              <div className="relative">
+                <div className="absolute -inset-1 bg-primary border-[3px] border-foreground translate-x-2 translate-y-2" aria-hidden />
+                <div className="relative border-[3px] border-foreground bg-background p-2">
+                  <img
+                    src={acrPixel.url}
+                    alt="Pixel-art portrait"
+                    className="w-32 sm:w-40 h-auto"
+                    style={{ imageRendering: "pixelated" }}
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Status Badge */}
             <div className="flex items-center gap-4 mb-8">
               <div className="badge-brutal bg-background">
