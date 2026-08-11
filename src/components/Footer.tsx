@@ -1,18 +1,19 @@
-import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Code2, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { LINKS } from "@/data/profile";
 
 const Footer = () => {
   const socials = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Github, href: LINKS.github, label: "GitHub" },
+    { icon: Linkedin, href: LINKS.linkedin, label: "LinkedIn" },
+    { icon: Code2, href: LINKS.leetcode, label: "LeetCode" },
   ];
 
   const navLinks = [
     { label: "About", href: "#about", num: "01" },
     { label: "Projects", href: "#projects", num: "02" },
     { label: "Contact", href: "#contact", num: "03" },
-    { label: "Resume", href: "https://flowcv.com/resume/r1lb90vqpwe3", num: "04", external: true },
+    { label: "Resume", href: LINKS.resume, num: "04", external: true },
   ];
 
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -43,7 +44,7 @@ const Footer = () => {
               </h2>
             </div>
             <a
-              href="mailto:hello@example.com"
+              href="#contact"
               className="group bg-primary text-primary-foreground flex md:flex-col items-center justify-between md:justify-center p-6 sm:p-8 md:w-48 gap-4"
             >
               <span className="font-black text-sm sm:text-base tracking-widest uppercase">
