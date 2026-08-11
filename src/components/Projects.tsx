@@ -1,243 +1,136 @@
-import { ExternalLink } from "lucide-react";
-import { motion, type Variants, type Easing } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { currentProjects, selectedProjects, type Project } from "@/data/profile";
 
-interface Project {
-  index: string;
-  title: string;
-  subtitle: string;
-  description: string[];
-  tech: string[];
-  github: string;
-}
-
-const projects: Project[] = [
-  {
-    index: "01",
-    title: "AiGo",
-    subtitle: "AI Travel Planner",
-    description: [
-      "AI-powered travel planner that generates personalized itineraries based on budget, preferences, and group size.",
-      "Discover destinations, plan daily activities, and manage trips seamlessly."
-    ],
-    tech: ["React", "Vite", "Firebase", "Google APIs", "AI Planning Logic"],
-    github: "https://github.com/achennakeshavareddy1301"
-  },
-  {
-    index: "02",
-    title: "Blaze",
-    subtitle: "Full-Stack Code Agent",
-    description: [
-      "A full-stack code agent platform focused on generating frontend code automatically.",
-      "Designed to accelerate UI development and reduce repetitive engineering work."
-    ],
-    tech: ["Frontend Code Generation", "AI Agents", "Full-Stack Architecture"],
-    github: "https://github.com/achennakeshavareddy1301"
-  },
-  {
-    index: "03",
-    title: "SpendIQ",
-    subtitle: "UPI Statement Analyzer",
-    description: [
-      "AI-powered financial insight tool for Indian users.",
-      "Upload Paytm, PhonePe, or Google Pay PDF statements and get instant spending analysis and insights."
-    ],
-    tech: ["PDF Parsing", "AI Analytics", "FinTech Logic", "Indian UPI Systems"],
-    github: "https://github.com/achennakeshavareddy1301"
-  },
-  {
-    index: "04",
-    title: "AI Dermatology Assistant",
-    subtitle: "Medical AI System",
-    description: [
-      "Analyzes a skin image along with brief symptoms to generate a structured and safe medication report, including dosage, precautions, and follow-up guidance."
-    ],
-    tech: ["Image Analysis", "Medical Safety Logic", "Structured AI Output"],
-    github: "https://github.com/achennakeshavareddy1301"
-  }
-];
-
-const easeOut: Easing = [0.25, 0.1, 0.25, 1];
-
-const cardVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
-    x: -80,
-    y: 40,
-    scale: 0.92,
-    rotate: -1.5,
-  },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    y: 0,
-    scale: 1,
-    rotate: 0,
-    transition: {
-      delay: i * 0.08,
-      duration: 0.55,
-      type: "spring",
-      stiffness: 140,
-      damping: 16,
-    }
-  })
-};
-
-const numberVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.5 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delay: i * 0.15 + 0.2,
-      duration: 0.4,
-      ease: easeOut
-    }
-  })
-};
-
-const techVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
+const rowVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: i * 0.05,
-      duration: 0.3
-    }
-  })
+    transition: { delay: i * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+const statusStyle: Record<Project["status"], string> = {
+  BUILDING: "bg-primary text-primary-foreground",
+  LIVE: "bg-foreground text-background",
+  SHIPPED: "bg-background text-foreground",
+};
+
+const ProjectArtifact = ({ project, i, featured }: { project: Project; i: number; featured?: boolean }) => {
+  const reduce = useReducedMotion();
+
   return (
-    <motion.div 
-      className="card-brutal p-6 md:p-8 group"
-      variants={cardVariants}
+    <motion.article
+      className="group border-[3px] border-foreground bg-card"
+      variants={rowVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.25, margin: "-80px" }}
-      custom={index}
-      whileHover={{ x: 4, y: 4 }}
-      transition={{ duration: 0.15 }}
+      viewport={{ once: true, amount: 0.2 }}
+      custom={i}
+      style={reduce ? { opacity: 1, transform: "none" } : undefined}
     >
-      <div className="flex flex-col md:flex-row md:items-start gap-6">
-        {/* Project Number */}
-        <motion.div 
-          className="text-6xl md:text-8xl font-black text-muted-foreground/20 leading-none select-none"
-          variants={numberVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          custom={index}
-        >
+      {/* Top meta strip */}
+      <div className="flex items-stretch border-b-[3px] border-foreground">
+        <div className="px-4 py-2 border-r-[3px] border-foreground font-mono text-xs font-black tracking-widest">
           {project.index}
-        </motion.div>
-
-        {/* Content */}
-        <div className="flex-1">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-black">
-                {project.title}
-              </h3>
-              <p className="text-primary font-bold mt-1">
-                {project.subtitle}
-              </p>
-            </div>
-            <motion.a 
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-brutal p-3 opacity-0 group-hover:opacity-100 transition-opacity"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ExternalLink className="w-5 h-5" />
-            </motion.a>
-          </div>
-
-          {/* Description */}
-          <div className="space-y-2 mb-6">
-            {project.description.map((line, i) => (
-              <p key={i} className="text-muted-foreground leading-relaxed">
-                {line}
-              </p>
-            ))}
-          </div>
-
-          {/* Tech Stack */}
-          <motion.div 
-            className="flex flex-wrap gap-2"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+        </div>
+        <div className="flex-1 px-4 py-2 flex items-center justify-between gap-3 min-w-0">
+          <span className="text-[10px] sm:text-[11px] font-black tracking-[0.2em] uppercase text-foreground/50 truncate">
+            {project.category}
+          </span>
+          <span
+            className={`hidden sm:inline-block shrink-0 border-[2px] border-foreground px-2 py-0.5 text-[10px] font-black tracking-widest ${statusStyle[project.status]}`}
           >
-            {project.tech.map((tech, i) => (
-              <motion.span 
-                key={tech} 
-                className="badge-brutal bg-background text-xs tracking-wide"
-                variants={techVariants}
-                custom={i}
-                whileHover={{ y: -2 }}
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </motion.div>
+            {project.status}
+          </span>
         </div>
       </div>
-    </motion.div>
+
+      <div className={`grid ${featured ? "lg:grid-cols-[1.1fr_1fr]" : "md:grid-cols-[1fr_auto]"}`}>
+        <div className="p-5 sm:p-7">
+          <h3
+            className={`uppercase tracking-tighter leading-[0.95] ${featured ? "text-4xl sm:text-5xl" : "text-2xl sm:text-3xl"} font-black break-words`}
+          >
+            {project.name}
+          </h3>
+          <p className="mt-3 text-base sm:text-lg font-medium max-w-prose">{project.summary}</p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="border-[2px] border-foreground px-2 py-0.5 text-[10px] sm:text-xs font-black tracking-wide uppercase bg-background"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className={`p-5 sm:p-7 border-t-[3px] ${featured ? "lg:border-t-0 lg:border-l-[3px]" : "md:border-t-0 md:border-l-[3px] md:w-[300px]"} border-foreground bg-secondary/60 flex flex-col justify-between gap-6`}>
+          <div>
+            <p className="text-[10px] font-black tracking-[0.2em] uppercase text-foreground/50 mb-2">
+              Core Engineering
+            </p>
+            <p className="text-sm leading-relaxed text-foreground/80">{project.achievement}</p>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {project.links.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-brutal bg-background px-3 py-2 text-xs tracking-widest uppercase inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                {l.label}
+                <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={3} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.article>
   );
 };
 
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: easeOut }
-  }
-};
-
-const lineVariants: Variants = {
-  hidden: { scaleX: 0 },
-  visible: { 
-    scaleX: 1,
-    transition: { duration: 0.6, delay: 0.3, ease: easeOut }
-  }
-};
+const GroupHeader = ({ label, note }: { label: string; note: string }) => (
+  <div className="flex items-end justify-between gap-4 border-b-[3px] border-foreground pb-3 mb-6">
+    <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight">{label}</h3>
+    <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-foreground/50 text-right">
+      {note}
+    </span>
+  </div>
+);
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative py-20 px-6 bg-muted overflow-hidden">
+    <section id="projects" className="relative py-20 px-4 sm:px-6 bg-muted overflow-hidden">
       <div aria-hidden className="absolute inset-0 bg-blueprint pointer-events-none opacity-60" />
-      <div aria-hidden className="absolute top-12 right-10 w-20 h-20 bg-primary border-[3px] border-foreground hidden md:block" />
-      <div aria-hidden className="absolute bottom-16 left-10 w-12 h-12 border-[3px] border-foreground bg-stripes hidden md:block" />
       <div className="relative max-w-5xl mx-auto">
-        {/* Section Header */}
-        <motion.div 
-          className="mb-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <motion.h2 
-            className="heading-brutal text-3xl md:text-5xl mb-4"
-            variants={headerVariants}
-          >
-            SELECTED PROJECTS
-          </motion.h2>
-          <motion.div 
-            className="w-24 h-[4px] bg-primary origin-left"
-            variants={lineVariants}
-          />
-        </motion.div>
+        <div className="mb-14">
+          <h2 className="heading-brutal text-3xl md:text-5xl mb-4">WORK INDEX</h2>
+          <div className="w-24 h-[4px] bg-primary" />
+        </div>
 
-        {/* Projects Stack */}
-        <div className="space-y-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.index} project={project} index={index} />
-          ))}
+        <div className="mb-16">
+          <GroupHeader label="Current / Active" note="AI systems in progress" />
+          <div className="space-y-8">
+            {currentProjects.map((p, i) => (
+              <ProjectArtifact key={p.index} project={p} i={i} featured />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <GroupHeader label="Selected Work" note="Shipped products" />
+          <div className="space-y-6">
+            {selectedProjects.map((p, i) => (
+              <ProjectArtifact key={p.index} project={p} i={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
