@@ -31,10 +31,10 @@ const About = () => {
               {/* Content */}
               <div className="space-y-6 text-lg leading-relaxed">
                 <p>
-                  I'm a final-year B.Tech student and software developer focused on building AI-powered, real-world products.
+                  Final-year B.Tech student and software engineer building <span className="font-bold text-primary">AI-powered systems</span> end to end—retrieval pipelines, agent workflows, and the products around them.
                 </p>
                 <p>
-                  My work sits at the intersection of <span className="font-bold text-primary">AI systems</span>, <span className="font-bold">full-stack engineering</span>, and <span className="font-bold">product design</span>. I care about performance, clarity, and shipping things that actually get used.
+                  I work across <span className="font-bold">RAG and knowledge graphs</span>, <span className="font-bold">LLM tooling</span>, and <span className="font-bold">full-stack engineering</span>, with a bias toward correctness, performance, and shipping things people actually use.
                 </p>
                 <p className="font-bold text-xl">
                   I design, build, and iterate—fast.

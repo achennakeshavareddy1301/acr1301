@@ -168,19 +168,18 @@ const Hero = () => {
 
           {/* Pixel Avatar Portrait */}
           <div className="hidden lg:flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="absolute -inset-2 bg-primary border-[3px] border-foreground translate-x-3 translate-y-3" aria-hidden />
-              <div className="relative border-[3px] border-foreground bg-background p-4">
+            <div className="group relative">
+              <div
+                className="absolute -inset-2 bg-primary border-[3px] border-foreground translate-x-3 translate-y-3 transition-transform duration-200 motion-reduce:transition-none group-hover:translate-x-1 group-hover:translate-y-1"
+                aria-hidden
+              />
+              <div className="relative border-[3px] border-foreground bg-background p-4 transition-transform duration-200 motion-reduce:transition-none group-hover:translate-x-1 group-hover:translate-y-1">
                 <img
                   src={acrPixel.url}
                   alt="Pixel-art portrait of Ayyaluri Chennakeshava Reddy"
                   className="w-[240px] xl:w-[280px] h-auto"
                   style={{ imageRendering: "pixelated" }}
                 />
-                <div className="mt-3 flex items-center justify-between border-t-[3px] border-foreground pt-2">
-                  <span className="text-[10px] font-black tracking-widest">SPRITE_v1</span>
-                  <span className="w-2 h-2 bg-primary animate-pulse" />
-                </div>
               </div>
             </div>
           </div>
