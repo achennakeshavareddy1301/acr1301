@@ -17,7 +17,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20 overflow-hidden">
       {/* Technical schematic background — layered grids + draft motifs */}
       <div
         aria-hidden
@@ -92,7 +92,7 @@ const Hero = () => {
         INDEX — 001
       </div>
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative container-page">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
           <div>
             {/* Mobile pixel avatar */}
