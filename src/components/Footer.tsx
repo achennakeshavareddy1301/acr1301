@@ -24,9 +24,9 @@ const Footer = () => {
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative bg-background px-4 sm:px-6 pt-16 pb-6"
+      className="relative bg-background pt-16 pb-6"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="container-page">
         {/* CTA Row */}
         <div className="border-[3px] border-foreground bg-background">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto]">

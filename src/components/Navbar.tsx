@@ -19,11 +19,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-background/90 backdrop-blur-sm border-foreground border-[3px] w-[min(880px,92vw)]"
-    >
-      <div className="mx-auto px-6 max-w-none">
-        <div className="flex items-center justify-between h-16">
+    <div className="fixed top-4 left-0 right-0 z-50">
+      <div className="container-page">
+      <nav className="bg-background/90 backdrop-blur-sm border-foreground border-[3px] w-full px-5 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-[76px]">
           {/* Persona */}
           <a
             href="#"
@@ -52,17 +51,17 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center lg:gap-2">
             <div className="flex items-center divide-x divide-foreground/20 border-x border-foreground/20">
               {navLinks.map((link) => (
                 <button
                   key={link.label}
                   onClick={() => scrollToSection(link.href)}
-                  className="group relative px-5 py-2 flex items-center gap-2 font-bold text-sm tracking-wide hover:text-primary transition-colors"
+                  className="group relative px-5 lg:px-8 py-2 flex items-center gap-2 font-bold text-sm tracking-wide hover:text-primary transition-colors"
                 >
                   <span className="text-[10px] text-foreground/40 group-hover:text-primary transition-colors">{link.num}</span>
                   <span>{link.label}</span>
-                  <span className="absolute left-5 right-5 bottom-1 h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
+                  <span className="absolute left-5 right-5 lg:left-8 lg:right-8 bottom-1 h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
                 </button>
               ))}
             </div>
@@ -70,7 +69,7 @@ const Navbar = () => {
               href="https://flowcv.com/resume/r1lb90vqpwe3"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-4 btn-brutal bg-primary text-primary-foreground px-4 py-2 text-sm inline-flex items-center gap-2"
+              className="ml-4 btn-brutal bg-primary text-primary-foreground px-4 lg:px-6 py-2 lg:py-2.5 text-sm inline-flex items-center gap-2"
             >
               HIRE ME
               <span className="w-1.5 h-1.5 bg-primary-foreground animate-pulse" />
@@ -109,8 +108,9 @@ const Navbar = () => {
             </a>
           </div>
         )}
+      </nav>
       </div>
-    </nav>
+    </div>
   );
 };
 

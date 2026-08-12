@@ -107,9 +107,9 @@ const GroupHeader = ({ label, note }: { label: string; note: string }) => (
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative py-20 px-4 sm:px-6 bg-muted overflow-hidden">
+    <section id="projects" className="relative py-20 bg-muted overflow-hidden">
       <div aria-hidden className="absolute inset-0 bg-blueprint pointer-events-none opacity-60" />
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative container-page">
         <div className="mb-14">
           <h2 className="heading-brutal text-3xl md:text-5xl mb-4">WORK INDEX</h2>
           <div className="w-24 h-[4px] bg-primary" />

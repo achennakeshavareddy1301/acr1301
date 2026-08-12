@@ -48,8 +48,8 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-6">
-      <div className="max-w-5xl mx-auto">
+    <section id="contact" className="py-20">
+      <div className="container-page">
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left: Header & Description */}
           <div>

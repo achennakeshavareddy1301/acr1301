@@ -178,8 +178,8 @@ const ProfileCard = ({ profile, index }: { profile: Profile; index: number }) =>
 
 const CodingActivity = () => {
   return (
-    <section id="coding-activity" className="py-20 px-6 bg-muted">
-      <div className="max-w-5xl mx-auto">
+    <section id="coding-activity" className="py-20 bg-muted">
+      <div className="container-page">
         {/* Section Header — same as Projects */}
         <motion.div
           className="mb-12"
